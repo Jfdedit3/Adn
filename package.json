@@ -1,0 +1,49 @@
+{
+  "name": "adn",
+  "version": "1.0.0",
+  "description": "Windows app wrapper for NovelAI",
+  "main": "electron/main.cjs",
+  "author": "Jfdedit3",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "electron": "electron .",
+    "start": "concurrently \"vite\" \"wait-on tcp:5173 && electron .\"",
+    "build:web": "vite build",
+    "build:win": "npm run build:web && electron-builder --win nsis",
+    "build": "npm run build:web && electron-builder"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "electron": "^35.1.4",
+    "electron-builder": "^24.13.3",
+    "vite": "^6.3.2",
+    "wait-on": "^8.0.3"
+  },
+  "build": {
+    "appId": "com.jfdedit3.adn",
+    "productName": "ADN",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

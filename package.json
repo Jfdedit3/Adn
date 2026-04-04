@@ -8,8 +8,8 @@
   "scripts": {
     "electron": "electron .",
     "start": "electron .",
-    "build:win": "electron-builder --win nsis",
-    "build": "electron-builder"
+    "build:win": "electron-builder --win nsis --publish never",
+    "build": "electron-builder --publish never"
   },
   "dependencies": {},
   "devDependencies": {
@@ -38,6 +38,7 @@
       "perMachine": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
-    }
+    },
+    "publish": null
   }
 }

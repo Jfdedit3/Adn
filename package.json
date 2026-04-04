@@ -6,20 +6,15 @@
   "author": "Jfdedit3",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
     "electron": "electron .",
-    "start": "concurrently \"vite\" \"wait-on tcp:5173 && electron .\"",
-    "build:web": "vite build",
-    "build:win": "npm run build:web && electron-builder --win nsis",
-    "build": "npm run build:web && electron-builder"
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis",
+    "build": "electron-builder"
   },
   "dependencies": {},
   "devDependencies": {
-    "concurrently": "^9.0.1",
     "electron": "^35.1.4",
-    "electron-builder": "^24.13.3",
-    "vite": "^6.3.2",
-    "wait-on": "^8.0.3"
+    "electron-builder": "^24.13.3"
   },
   "build": {
     "appId": "com.jfdedit3.adn",
@@ -28,7 +23,6 @@
       "output": "release"
     },
     "files": [
-      "dist/**/*",
       "electron/**/*",
       "package.json"
     ],

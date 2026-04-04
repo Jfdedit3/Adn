@@ -1,32 +1,44 @@
-name: Build Windows App
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-jobs:
-  build-windows:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Windows installer
-        run: npm run build:win
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ADN-Windows-Build
-          path: release/**/*
+{
+  "name": "adn",
+  "version": "1.0.0",
+  "description": "Windows app wrapper for NovelAI",
+  "main": "electron/main.cjs",
+  "author": "Jfdedit3",
+  "license": "MIT",
+  "scripts": {
+    "electron": "electron .",
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis --publish never",
+    "build": "electron-builder --publish never"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^35.1.4",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.jfdedit3.adn",
+    "productName": "ADN",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": null
+  }
+}
